@@ -1,0 +1,4 @@
+python-dateutil
+
+[:python_version=='2.7']
+backports.functools_lru_cache>=1.2.1

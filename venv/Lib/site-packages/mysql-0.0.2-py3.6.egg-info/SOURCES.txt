@@ -1,0 +1,8 @@
+README.rst
+setup.cfg
+setup.py
+mysql.egg-info/PKG-INFO
+mysql.egg-info/SOURCES.txt
+mysql.egg-info/dependency_links.txt
+mysql.egg-info/requires.txt
+mysql.egg-info/top_level.txt

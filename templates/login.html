@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--favicon -->
+    <link rel="shortcut icon" href="/static/images/huade.ico">
+    <!-- Main CSS-->
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+    <!-- Font-icon css-->
+    <link rel="stylesheet" type="text/css" href="/static/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/font.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrapValidator.css">
+    <style>
+        @font-face {
+            font-family: baidu;
+            src: url(/static/font/baidu.ttf);
+        }
+
+        #fontload {
+            font-family: baidu;
+        }
+    </style>
+    <title>登陆 - 华德学院车辆进出管理系统</title>
+</head>
+<body>
+<section class="material-half-bg">
+    <div class="cover"></div>
+</section>
+<section class="login-content">
+    <div class="logo">
+        <h1>
+            <font id="fontload">华德学院车辆进出管理系统</font>
+        </h1>
+    </div>
+    <div class="login-box">
+        <form class="login-form" method="post" id="form">
+            <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user-circle-o"></i>请登陆</h3>
+            <div class="form-group">
+                <label class="control-label">用户名</label>
+                <input class="form-control" type="text" name="username" placeholder="请输入您的用户名" autofocus>
+            </div>
+            <div class="form-group">
+                <label class="control-label">密&nbsp;&nbsp;&nbsp;&nbsp;码</label>
+                <input class="form-control" type="password" name="password" placeholder="请输入您的密码">
+            </div>
+            <div class="form-group btn-container">
+                <button class="btn btn-primary btn-block" onclick="jiaoyan()" id='validateBtn'><i
+                        class="fa fa-sign-in fa-lg fa-fw"></i>登陆
+                </button>
+            </div>
+            <div id="message">
+                {{ status }}
+            </div>
+        </form>
+    </div>
+</section>
+<!-- Essential javascripts for application to work-->
+<script src="/static/js/jquery-3.2.1.min.js"></script>
+<script src="/static/js/popper.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/main.js"></script>
+<script src="/static/js/bootstrapValidator.js"></script>
+<!-- The javascript plugin to display page loading on top-->
+<script src="/static/js/plugins/pace.min.js"></script>
+<script type="text/javascript">
+    // Login Page Flipbox control
+    $('.login-content [data-toggle="flip"]').click(function () {
+        $('.login-box').toggleClass('flipped');
+        return false;
+    });
+</script>
+<script>
+    setTimeout(function () {
+        document.getElementById("message").style.display = "none";
+    }, 2000);
+
+    function jiaoyan() {
+        var bootstrapValidator = $('#form').data('bootstrapValidator');
+        //手动触发验证
+        bootstrapValidator.validate();
+        //判断是否都合法
+        if (bootstrapValidator.isValid()) {
+            //提交表单 注意 不能用 jquery对象 必须用dom对象
+            $('#form')[0].submit();
+        }
+    }
+
+    $(document).ready(function () {
+        //bootstrapValidator-begin
+        $('#form').bootstrapValidator({
+            //live: 'disabled',
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                username: {
+                    validators: {
+                        notEmpty: {
+                            message: '用户名不能为空'
+                        },
+
+                    }
+                },
+                password: {
+                    validators: {
+                        notEmpty: {
+                            message: '密码不能为空'
+                        },
+                    }
+                },
+            }
+        })
+        //bootstrapValidator-end
+    });
+</script>
+</body>
+</html>

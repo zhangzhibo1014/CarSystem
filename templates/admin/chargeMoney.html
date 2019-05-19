@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>查看收费金额 - 华德学院进出管理系统</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/static/images/huade.ico">
+    <!-- Main CSS-->
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+    <!-- Font-icon css-->
+    <style>
+        @font-face {
+            font-family: baidu;
+            src: url(/static/font/baidu.ttf);
+        }
+
+        #fontload {
+            font-family: baidu;
+        }
+
+        .ImgDiv {
+            width: 60%;
+            /* height: 80%; */
+            margin: auto;
+        }
+
+        #aDay {
+            width: 600px;
+            height: 400px;
+        }
+
+        #aWeek {
+            width: 600px;
+            height: 400px;
+        }
+
+        #aMonth {
+            width: 600px;
+            height: 400px;
+        }
+
+        #aTotal {
+            width: 600px;
+            height: 400px;
+        }
+
+        @media screen and (max-width: 1566px) {
+            #aDay {
+                width: 100%;
+                height: 400px;
+            }
+
+            #aWeek {
+                width: 100%;
+                height: 400px;
+            }
+
+            #aMonth {
+                width: 100%;
+                height: 400px;
+            }
+
+            #aTotal {
+                width: 100%;
+                height: 400px;
+            }
+        }
+
+    </style>
+    <!-- 图标css -->
+    <link rel="stylesheet" type="text/css" href="/static/font-awesome/css/font-awesome.min.css">
+</head>
+<body class="app sidebar-mini rtl">
+<!-- Navbar-->
+<header class="app-header">
+    <a class="app-header__logo" href="/admin/index.html">
+        <font id="fontload" size="3">华德学院车辆进出管理系统</font>
+    </a>
+    <!-- Sidebar toggle button-->
+    <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
+    <!-- Navbar Right Menu-->
+    <ul class="app-nav">
+        <!-- User Menu-->
+        <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i
+                class="fa fa-user-o fa-lg"></i></a>
+            <ul class="dropdown-menu settings-menu dropdown-menu-right">
+                <li><a class="dropdown-item" href="/admin/passwordEdit.html"><i class="fa fa-cog fa-lg"></i> 密码修改</a>
+                </li>
+                <li><a class="dropdown-item" href="/logout"><i class="fa fa-sign-out fa-lg"></i> 注销</a></li>
+            </ul>
+        </li>
+        <!--end User Me -->
+    </ul>
+</header>
+<!-- Sidebar menu-->
+<div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+<aside class="app-sidebar">
+    <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="/static/images/logo.jpg"
+                                        alt="User Image">
+        <div>
+            <p class="app-sidebar__user-name">{{ session_name }}</p>
+            <p class="app-sidebar__user-designation">管理员</p>
+        </div>
+    </div>
+    <ul class="app-menu">
+        <li><a class="app-menu__item" href="/admin/index.html"><i class="app-menu__icon fa fa-desktop"></i><span
+                class="app-menu__label">首页</span></a></li>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i
+                class="app-menu__icon fa fa-car"></i><span
+                class="app-menu__label">车辆管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item" href="/admin/carSchool.html"><i class="app-menu__icon fa fa-circle-o"></i>校园常驻车辆</a>
+                </li>
+                <li><a class="treeview-item" href="/admin/blackList.html"><i class="app-menu__icon fa fa-circle-o"></i>黑名单</a>
+                </li>
+            </ul>
+        </li>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i
+                class="app-menu__icon fa fa-rmb"></i><span
+                class="app-menu__label">收费管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item" href="/admin/chargeStandard.html"><i
+                        class="app-menu__icon fa fa-circle-o"></i>收费标准设定</a></li>
+            </ul>
+        </li>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i
+                class="app-menu__icon fa fa-list"></i><span
+                class="app-menu__label">信息查询</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item" href="/admin/carReal.html"><i class="app-menu__icon fa fa-circle-o"></i>实时校内车辆查询</a>
+                </li>
+                <li><a class="treeview-item" href="/admin/carDay.html"><i class="app-menu__icon fa fa-circle-o"></i>当日车辆信息查询</a>
+                </li>
+                <li><a class="treeview-item" href="/admin/carHistory.html"><i class="app-menu__icon fa fa-circle-o"></i>车辆历史信息查询</a>
+                </li>
+            </ul>
+        </li>
+        <li class="treeview"><a class="app-menu__item active" href="#" data-toggle="treeview"><i
+                class="app-menu__icon fa fa-money"></i><span
+                class="app-menu__label">财务管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item active" href="/admin/chargeMoney.html"><i
+                        class="app-menu__icon fa fa-circle-o"></i>查看收费金额</a></li>
+                <li><a class="treeview-item" href="/admin/chargeRecord.html"><i
+                        class="app-menu__icon fa fa-circle-o"></i>查看收费记录</a></li>
+            </ul>
+        </li>
+        <li><a class="app-menu__item" href="/admin/userManage.html"><i class="app-menu__icon fa fa-users"></i><span
+                class="app-menu__label">用户管理</span></a></li>
+        <li><a class="app-menu__item" href="/admin/log.html"><i class="app-menu__icon fa fa-wrench"></i><span
+                class="app-menu__label">操作日志</span></a></li>
+    </ul>
+</aside>
+<main class="app-content">
+    <div class="app-title">
+        <div>
+            <h1><i class="fa fa-vcard-o"></i>查看收费金额</h1>
+        </div>
+        <ul class="app-breadcrumb breadcrumb side">
+            <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+            <li class="breadcrumb-item">华德学院车辆进出管理系统</li>
+            <li class="breadcrumb-item active"><a href="/admin/chargeMoney.html">查看收费金额</a></li>
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="tile">
+                <h3 class="tile-title">日收费金额 <span style="float: right; font-size: 16px;">{{ now }}</span></h3>
+                <div id="aDay">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="tile">
+                <h3 class="tile-title">月收费金额 <span style="float: right; font-size: 16px;">{{ this_month }}</span></h3>
+                <div id="aMonth">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-md-6">
+            <div class="tile">
+                <h3 class="tile-title">年费用汇总 <span style="float: right; font-size: 16px;">{{ year }}年</span>
+                </h3>
+                <div id="aWeek">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="tile">
+                <h3 class="tile-title">金额汇总</h3>
+                <div id="aTotal">
+                    <div class="">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- Essential javascripts for application to work-->
+<script src="/static/js/jquery-3.2.1.min.js"></script>
+<script src="/static/js/popper.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/main.js"></script>
+<!-- The javascript plugin to display page loading on top-->
+<script src="/static/js/plugins/pace.min.js"></script>
+<!-- Data table plugin-->
+<script src="/static/js/plugins/jquery.dataTables.min.js"></script>
+<script src="/static/js/plugins/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript">
+    $('#sampleTable').DataTable();
+</script>
+<!-- Google analytics script-->
+<script type="text/javascript">
+    if (document.location.hostname == 'pratikborsadiya.in') {
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-72504830-1', 'auto');
+        ga('send', 'pageview');
+    }
+</script>
+<!-- Page specific javascripts-->
+<script src="/static/js/echarts.js"></script>
+<script type="text/javascript">
+
+    xianjin = [];
+    weixin = [];
+    zhifubao = [];
+    zongjine = [];
+
+    list = [];
+    list_month = [];
+    list_year = [];
+    $(document).ready(function () {
+
+        //当日金额
+        var lists = {{ moneyList|safe }};
+        var total = 0;
+        for (i in lists) {
+            total = total + lists[i];
+            var obj = new Object();
+            obj.value = 0;
+            obj.value = lists[i];
+            if (i == '现金') {
+                xianjin.push(obj);
+            } else if (i == '微信') {
+                weixin.push(obj);
+            } else if (i == '支付宝') {
+                zhifubao.push(obj);
+            }
+            list.push(obj);
+        }
+        var obj = new Object();
+        obj.value = total;
+        zongjine.push(obj);
+        list.push(obj)
+        myChart1.setOption({ //加载数据图表
+            series: {
+                data: list
+            }
+        });
+
+        //月收费
+        var lists_month = {{ money_month|safe }};
+        var total_month = 0;
+        for (i in lists_month) {
+            total_month = total_month + lists_month[i];
+            var Obj = new Object();
+            Obj.name = i;
+            Obj.value = 0;
+            Obj.value = lists_month[i];
+            var obj = new Object();
+            obj.value = 0;
+            obj.value = lists_month[i];
+            if (i == '现金') {
+                xianjin.push(obj);
+            } else if (i == '微信') {
+                weixin.push(obj);
+            } else if (i == '支付宝') {
+                zhifubao.push(obj);
+            }
+            list_month.push(Obj);
+        }
+        var obj = new Object();
+        obj.value = total_month;
+        zongjine.push(obj);
+        myChart2.setOption({ //加载数据图表
+            series: {
+                data: list_month
+            }
+        });
+
+        //年收费
+        var lists_year = {{ money_year|safe }};
+        var total_year = 0;
+        for (i in lists_year) {
+            total_year = total_year + lists_year[i];
+            var Obj = new Object();
+            Obj.name = i;
+            Obj.value = 0;
+            Obj.value = lists_year[i];
+            var obj = new Object();
+            obj.value = 0;
+            obj.value = lists_year[i];
+            if (i == '现金') {
+                xianjin.push(obj);
+            } else if (i == '微信') {
+                weixin.push(obj);
+            } else if (i == '支付宝') {
+                zhifubao.push(obj);
+            }
+            list_year.push(Obj);
+        }
+        var obj = new Object();
+        obj.value = total_year;
+        zongjine.push(obj);
+        myChart3.setOption({ //加载数据图表
+            series: {
+                data: list_year
+            }
+        });
+
+        //总额
+        xianjin.sort(down);
+        weixin.sort(down);
+        zhifubao.sort(down);
+        zongjine.sort(down);
+        myChart4.setOption({ //加载数据图表
+            series: [
+                {
+                    data: xianjin
+                },
+                {
+                    data:zhifubao
+                },
+                {
+                    data:weixin
+                },
+                {
+                    data:zongjine
+                }
+            ]
+        });
+    });
+
+    function down(x, y){
+        return (x.value < y.value) ? 1 : -1
+    }
+    //柱状图
+    option = {
+        color: ['#3398DB'],
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: { // 坐标轴指示器，坐标轴触发有效
+                type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+            }
+        },
+        grid: {
+            left: '8%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: [{
+            type: 'category',
+            data: ['微信', '支付宝', '现金', '总金额'],
+            axisTick: {
+                alignWithLabel: true
+            }
+        }],
+        yAxis: [{
+            type: 'value'
+        }],
+        series: [{
+            name: '金额',
+            type: 'bar',
+            barWidth: '60%',
+            data: [],
+        }]
+    };
+
+    //初始化echarts实例
+    var myChart1 = echarts.init(document.getElementById('aDay'));
+
+    //使用制定的配置项和数据显示图表
+    myChart1.setOption(option);
+
+    //饼图
+    option = {
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            x: 'left',
+            data: ['微信', '支付宝', '现金']
+        },
+        series: [{
+            name: '金额',
+            type: 'pie',
+            radius: ['50%', '70%'],
+            avoidLabelOverlap: false,
+            label: {
+                normal: {
+                    show: false,
+                    position: 'center'
+                },
+                emphasis: {
+                    show: true,
+                    textStyle: {
+                        fontSize: '30',
+                        fontWeight: 'bold'
+                    }
+                }
+            },
+            labelLine: {
+                normal: {
+                    show: false
+                }
+            },
+            data: []
+        }]
+    };
+
+    //初始化echarts实例
+    var myChart2 = echarts.init(document.getElementById('aMonth'));
+
+    //使用制定的配置项和数据显示图表
+    myChart2.setOption(option);
+
+    //曲线图
+    option = {
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+            data: ['微信', '支付宝', '现金']
+        },
+        series: [
+            {
+                name: '访问来源',
+                type: 'pie',
+                radius: '55%',
+                center: ['50%', '60%'],
+                data: [
+                    {value: 335, name: '微信'},
+                    {value: 310, name: '支付宝'},
+                    {value: 234, name: '现金'}
+                ],
+                itemStyle: {
+                    emphasis: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+
+
+    //初始化echarts实例
+    var myChart3 = echarts.init(document.getElementById('aWeek'));
+
+    //使用制定的配置项和数据显示图表
+    myChart3.setOption(option);
+
+    // 金额汇总
+
+    option = {
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: { // 坐标轴指示器，坐标轴触发有效
+                type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+            }
+        },
+        legend: {
+            data: ['现金', '支付宝', '微信', '总金额']
+        },
+        grid: {
+            left: '8%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: {
+            type: 'value'
+        },
+        yAxis: {
+            type: 'category',
+            data: ['年总额', '月总额', '日总额']
+        },
+        series: [
+            {
+                name: '现金',
+                type: 'bar',
+                stack: '总量',
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'insideRight'
+                    }
+                },
+                data: []
+            },
+            {
+                name: '支付宝',
+                type: 'bar',
+                stack: '总量',
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'insideRight'
+                    }
+                },
+                data: []
+            },
+            {
+                name: '微信',
+                type: 'bar',
+                stack: '总量',
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'insideRight'
+                    }
+                },
+                data: []
+            },
+            {
+                name: '总金额',
+                type: 'bar',
+                stack: '总量',
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'insideRight'
+                    }
+                },
+                data: []
+            }
+        ]
+    };
+
+    //初始化echarts实例
+    var myChart4 = echarts.init(document.getElementById('aTotal'));
+
+    //使用制定的配置项和数据显示图表
+    myChart4.setOption(option);
+
+
+    window.addEventListener("resize", function () {
+        myChart1.resize();
+        myChart2.resize();
+        myChart3.resize();
+        myChart4.resize();
+    });
+</script>
+</body>
+</html>

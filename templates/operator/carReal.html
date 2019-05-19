@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>实时校内车辆查询 - 华德学院进出管理系统</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="shortcut icon" href="/static/images/huade.ico">
+		<!-- Main CSS-->
+		<link rel="stylesheet" type="text/css" href="/static/css/main.css">
+		<!-- Font-icon css-->
+		<style>
+			@font-face {
+				font-family: baidu;
+				src: url(/static/font/baidu.ttf);
+			}
+
+			#fontload {
+				font-family: baidu;
+			}
+
+			.ImgDiv {
+				width: 60%;
+				/* height: 80%; */
+				margin: auto;
+			}
+		</style>
+		<!-- 图标css -->
+		<link rel="stylesheet" type="text/css" href="/static/font-awesome/css/font-awesome.min.css">
+	</head>
+	<body class="app sidebar-mini rtl">
+		<!-- Navbar-->
+		<header class="app-header">
+			<a class="app-header__logo" href="/operator/index.html">
+				<font id="fontload" size="3">华德学院车辆进出管理系统</font>
+			</a>
+			<!-- Sidebar toggle button-->
+			<a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
+			<!-- Navbar Right Menu-->
+			<ul class="app-nav">
+				<!-- User Menu-->
+				<li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i
+						 class="fa fa-user-o fa-lg"></i></a>
+					<ul class="dropdown-menu settings-menu dropdown-menu-right">
+						<li><a class="dropdown-item" href="/operator/passwordEdit.html"><i class="fa fa-cog fa-lg"></i> 密码修改</a></li>
+						<li><a class="dropdown-item" href="/logout"><i class="fa fa-sign-out fa-lg"></i> 注销</a></li>
+					</ul>
+				</li>
+				<!--end User Me -->
+			</ul>
+		</header>
+		<!-- Sidebar menu-->
+		<div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+		<aside class="app-sidebar">
+			<div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="/static/images/logo.jpg"
+				 alt="User Image">
+				<div>
+					<p class="app-sidebar__user-name">{{ session_name }}</p>
+					<p class="app-sidebar__user-designation">操作员</p>
+				</div>
+			</div>
+			<ul class="app-menu">
+				<li><a class="app-menu__item" href="/operator/index.html"><i class="app-menu__icon fa fa-desktop"></i><span class="app-menu__label">首页</span></a></li>
+				<li><a class="app-menu__item active" href="/operator/carReal.html"><i class="app-menu__icon fa fa-desktop"></i><span class="app-menu__label">实时校内车辆查询</span></a></li>
+				<li><a class="app-menu__item" href="/operator/carDay.html"><i class="app-menu__icon fa fa-desktop"></i><span class="app-menu__label">当日车辆信息查询</span></a></li>
+				<li><a class="app-menu__item" href="/operator/chargeRecord.html"><i class="app-menu__icon fa fa-desktop"></i><span class="app-menu__label">查看收费记录</span></a></li>
+				<li><a class="app-menu__item" href="/operator/blackList.html"><i class="app-menu__icon fa fa-desktop"></i><span class="app-menu__label">黑名单</span></a></li>
+				<li><a class="app-menu__item" href="/operator/carHistory.html"><i class="app-menu__icon fa fa-desktop"></i><span class="app-menu__label">车辆历史信息查询</span></a></li>
+			</ul>
+		</aside>
+		<main class="app-content">
+			<div class="app-title">
+				<div>
+					<h1><i class="fa fa-list-ul"></i>实时校内车辆查询</h1>
+				</div>
+				<ul class="app-breadcrumb breadcrumb side">
+					<li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+					<li class="breadcrumb-item">华德学院车辆进出管理系统</li>
+					<li class="breadcrumb-item active"><a href="/operator/carReal.html">实时校内车辆查询</a></li>
+				</ul>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="tile">
+						<div class="tile-body">
+							<table class="table table-hover table-bordered" id="sampleTable">
+								<thead>
+									<tr>
+										<th>序号</th>
+										<th>车牌号码</th>
+										<th>车辆类型</th>
+										<th>进校时间</th>
+										<th>入口信息</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for i in realLists %}
+                                    <tr>
+										<td>{{ forloop.counter }}</td>
+										<td>{{ i.plate_number }}</td>
+										<td>{{ i.car_type }}</td>
+										<td>{{ i.in_date }}</td>
+										<td>{{ i.enter_info }}</td>
+									</tr>
+                                {% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+		<!-- Essential javascripts for application to work-->
+		<script src="/static/js/jquery-3.2.1.min.js"></script>
+		<script src="/static/js/popper.min.js"></script>
+		<script src="/static/js/bootstrap.min.js"></script>
+		<script src="/static/js/main.js"></script>
+		<!-- The javascript plugin to display page loading on top-->
+		<script src="/static/js/plugins/pace.min.js"></script>
+		<!-- Page specific javascripts-->
+		<!-- Data table plugin-->
+		<script src="/static/js/plugins/jquery.dataTables.min.js"></script>
+		<script src="/static/js/plugins/dataTables.bootstrap.min.js"></script>
+		<script type="text/javascript">
+			$('#sampleTable').DataTable();
+		</script>
+		<!-- Google analytics script-->
+		<script type="text/javascript">
+			if (document.location.hostname == 'pratikborsadiya.in') {
+				(function(i, s, o, g, r, a, m) {
+					i['GoogleAnalyticsObject'] = r;
+					i[r] = i[r] || function() {
+						(i[r].q = i[r].q || []).push(arguments)
+					}, i[r].l = 1 * new Date();
+					a = s.createElement(o),
+						m = s.getElementsByTagName(o)[0];
+					a.async = 1;
+					a.src = g;
+					m.parentNode.insertBefore(a, m)
+				})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+				ga('create', 'UA-72504830-1', 'auto');
+				ga('send', 'pageview');
+			}
+		</script>
+	</body>
+</html>

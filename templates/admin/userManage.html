@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>用户管理 - 华德学院进出管理系统</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/static/images/huade.ico">
+    <!-- Main CSS-->
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+    <!-- Font-icon css-->
+    <style>
+        @font-face {
+            font-family: baidu;
+            src: url(/static/font/baidu.ttf);
+        }
+
+        #fontload {
+            font-family: baidu;
+        }
+
+        .ImgDiv {
+            width: 60%;
+            /* height: 80%; */
+            margin: auto;
+        }
+    </style>
+    <!-- 图标css -->
+    <link rel="stylesheet" type="text/css" href="/static/font-awesome/css/font-awesome.min.css">
+</head>
+<body class="app sidebar-mini rtl">
+<!-- Navbar-->
+<header class="app-header">
+    <a class="app-header__logo" href="/admin/index.html">
+        <font id="fontload" size="3">华德学院车辆进出管理系统</font>
+    </a>
+    <!-- Sidebar toggle button-->
+    <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
+    <!-- Navbar Right Menu-->
+    <ul class="app-nav">
+        <!-- User Menu-->
+        <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i
+                class="fa fa-user-o fa-lg"></i></a>
+            <ul class="dropdown-menu settings-menu dropdown-menu-right">
+                <li><a class="dropdown-item" href="/admin/passwordEdit.html"><i class="fa fa-cog fa-lg"></i> 密码修改</a>
+                </li>
+                <li><a class="dropdown-item" href="/logout"><i class="fa fa-sign-out fa-lg"></i> 注销</a></li>
+            </ul>
+        </li>
+        <!--end User Me -->
+    </ul>
+</header>
+<!-- Sidebar menu-->
+<div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+<aside class="app-sidebar">
+    <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="/static/images/logo.jpg"
+                                        alt="User Image">
+        <div>
+            <p class="app-sidebar__user-name">{{ session_name }}</p>
+            <p class="app-sidebar__user-designation">管理员</p>
+        </div>
+    </div>
+    <ul class="app-menu">
+        <li><a class="app-menu__item" href="/admin/index.html"><i class="app-menu__icon fa fa-desktop"></i><span
+                class="app-menu__label">首页</span></a></li>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i
+                class="app-menu__icon fa fa-car"></i><span
+                class="app-menu__label">车辆管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item" href="/admin/carSchool.html"><i class="app-menu__icon fa fa-circle-o"></i>校园常驻车辆</a>
+                </li>
+                <li><a class="treeview-item" href="/admin/blackList.html"><i class="app-menu__icon fa fa-circle-o"></i>黑名单</a>
+                </li>
+            </ul>
+        </li>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i
+                class="app-menu__icon fa fa-rmb"></i><span
+                class="app-menu__label">收费管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item" href="/admin/chargeStandard.html"><i
+                        class="app-menu__icon fa fa-circle-o"></i>收费标准设定</a></li>
+            </ul>
+        </li>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i
+                class="app-menu__icon fa fa-list"></i><span
+                class="app-menu__label">信息查询</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item" href="/admin/carReal.html"><i class="app-menu__icon fa fa-circle-o"></i>实时校内车辆查询</a>
+                </li>
+                <li><a class="treeview-item" href="/admin/carDay.html"><i class="app-menu__icon fa fa-circle-o"></i>当日车辆信息查询</a>
+                </li>
+                <li><a class="treeview-item" href="/admin/carHistory.html"><i class="app-menu__icon fa fa-circle-o"></i>车辆历史信息查询</a>
+                </li>
+            </ul>
+        </li>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i
+                class="app-menu__icon fa fa-money"></i><span
+                class="app-menu__label">财务管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item" href="/admin/chargeMoney.html"><i
+                        class="app-menu__icon fa fa-circle-o"></i>查看收费金额</a></li>
+                <li><a class="treeview-item" href="/admin/chargeRecord.html"><i
+                        class="app-menu__icon fa fa-circle-o"></i>查看收费记录</a></li>
+            </ul>
+        </li>
+        <li><a class="app-menu__item active" href="/admin/userManage.html"><i
+                class="app-menu__icon fa fa-users"></i><span class="app-menu__label">用户管理</span></a></li>
+        <li><a class="app-menu__item" href="/admin/log.html"><i class="app-menu__icon fa fa-wrench"></i><span
+                class="app-menu__label">操作日志</span></a></li>
+    </ul>
+</aside>
+<main class="app-content">
+    <div class="app-title">
+        <div>
+            <h1><i class="fa fa-vcard-o"></i>用户管理</h1>
+        </div>
+        <ul class="app-breadcrumb breadcrumb side">
+            <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+            <li class="breadcrumb-item">华德学院车辆进出管理系统</li>
+            <li class="breadcrumb-item active"><a href="/admin/userManage.html">用户管理</a></li>
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+                <div class="tile-body">
+                    <div class="form-group">
+                        <div class="btn-group" data-toggle="modal" data-target="#myModal">
+                            <div class="btn btn-outline-secondary">
+                                <i class="fa fa-lg"><span>添加用户</span></i>
+                            </div>
+                        </div>
+                        <div class="btn-group" data-toggle="modal" data-target="#deleteModal">
+                            <div class="btn btn-outline-secondary" onclick="delete_some();">
+                                <i class="fa fa-lg"><span>删除用户</span></i>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-hover table-bordered" id="sampleTable">
+                        <thead>
+                        <tr>
+                            <th>
+                                <input type="checkbox" name="checkboxlists" value="" id="all"/>
+                            </th>
+                            <th>序号</th>
+                            <th>姓名</th>
+                            <th>性别</th>
+                            <th>职位</th>
+                            <th>身份证号</th>
+                            <th>联系方式</th>
+                            <th>权限</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in users %}
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="checkboxlist" value="{{ i.id }}"/>
+                                </td>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ i.name }}</td>
+                                <td>{{ i.sex }}</td>
+                                <td>{{ i.job }}</td>
+                                <td>{{ i.idcard }}</td>
+                                <td>{{ i.phone }}</td>
+                                <td>{{ i.power_name }}</td>
+                                <td>
+                                    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal_edit"
+                                            onclick="update(this.value);" value="{{ forloop.counter }}">修改
+                                    </button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- 添加弹框 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>添加用户</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- <div class="tile"> -->
+                <div class="col-lg-12">
+                    <form method="post" action="/add_userinfo" id="form5">
+                        <div class="form-group">
+                            <label>姓名</label>
+                            <input class="form-control" name="name" type="text" placeholder="请输入姓名">
+                        </div>
+                        <div class="form-group">
+                            <label>性别</label>
+                            <select class="form-control" name="sex">
+                                <option value="男">男</option>
+                                <option value="女">女</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>职位</label>
+                            <input class="form-control" name="job" type="text" placeholder="请输入职位">
+                        </div>
+                        <div class="form-group">
+                            <label>身份证号码</label>
+                            <input class="form-control" name="idcard" type="text" placeholder="请输入身份证号码">
+                        </div>
+                        <div class="form-group">
+                            <label>联系方式</label>
+                            <input class="form-control" name="phone" type="text" placeholder="请输入联系方式">
+                        </div>
+                        <div class="form-group">
+                            <label>权限</label>
+                            <select class="form-control" name="quanxian">
+                                <option value="管理员">管理员</option>
+                                <option value="操作员">操作员</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>用户名</label>
+                            <input class="form-control" name="username" type="text" placeholder="请输入用户名">
+                        </div>
+                        <div class="form-group">
+                            <label>密码</label>
+                            <input class="form-control" name="password" type="password" placeholder="请输入密码">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" onclick="jiaoyan()">
+                                保存
+                            </button>
+                        </div>
+                    </form>
+                    <!-- <div class="tile-footer">
+                        <a href="charge.html"><button class="btn btn-primary" type="submit">提交</button></a>
+                    </div> -->
+                </div>
+                <!-- </div> -->
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!-- 修改弹框 -->
+<div class="modal fade" id="myModal_edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>修改用户</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- <div class="tile"> -->
+                <div class="col-lg-12">
+                    <form method="post" action="/update_userinfo">
+                        <div class="form-group">
+                            <label>姓名</label>
+                            <input class="form-control" id="name_update" name="name_update" type="text" value="">
+                        </div>
+                        <div class="form-group">
+                            <label>性别</label>
+                            <input class="form-control" id="sex_update" name="sex_update" type="text" value=""/>
+                        </div>
+                        <div class="form-group">
+                            <label>职位</label>
+                            <input class="form-control" id="job_update" name="job_update" type="text" value="">
+                        </div>
+                        <div class="form-group">
+                            <label>身份证号码</label>
+                            <input class="form-control" id="idcard_update" name="idcard_update" type="text" value="">
+                        </div>
+                        <div class="form-group">
+                            <label>联系方式</label>
+                            <input class="form-control" id="phone_update" name="phone_update" type="text" value="">
+                        </div>
+                        <div class="form-group">
+                            <label>权限</label>
+                            <select class="form-control" id="quanxian_update" name="quanxian_update">
+                                <option value="管理员">管理员</option>
+                                <option value="操作员">操作员</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">
+                                保存
+                            </button>
+                        </div>
+                    </form>
+                    <!-- <div class="tile-footer">
+                        <a href="charge.html"><button class="btn btn-primary" type="submit">提交</button></a>
+                    </div> -->
+                </div>
+                <!-- </div> -->
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!-- 删除 -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>删除用户</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-12" style="text-align: center;">
+                    <span style="font-size: 20px; font-family: 'arial black';">确定删除选择的用户?</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">否
+                </button>
+                <a href="/admin/userManage.html">
+                    <button type="button" class="btn btn-primary" id="tode">
+                        是
+                    </button>
+                </a>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!-- Essential javascripts for application to work-->
+<script src="/static/js/jquery-3.2.1.min.js"></script>
+<script src="/static/js/popper.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/main.js"></script>
+<script src="/static/js/bootstrapValidator.js"></script>
+<!-- The javascript plugin to display page loading on top-->
+<script src="/static/js/plugins/pace.min.js"></script>
+<!-- Page specific javascripts-->
+<!-- Data table plugin-->
+<script src="/static/js/plugins/jquery.dataTables.min.js"></script>
+<script src="/static/js/plugins/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript">
+    $('#sampleTable').DataTable();
+</script>
+<!-- Google analytics script-->
+<script type="text/javascript">
+    if (document.location.hostname == 'pratikborsadiya.in') {
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-72504830-1', 'auto');
+        ga('send', 'pageview');
+    }
+</script>
+<!-- this page script -->
+<script type="text/javascript">
+    $('#all').click(function () {
+        if (this.checked) {
+            $("input[name='checkboxlist']").prop("checked", true);
+        } else {
+            $("input[name='checkboxlist']").prop("checked", false);
+        }
+    })
+
+    function delete_some() {
+        var chenked = $("input[name='checkboxlist']:checked").val([]);
+        names = new Array();
+        for (var i = 0; i < chenked.length; i++) {
+            names[i] = chenked[i].value;
+        }
+        console.log(names)
+    }
+
+    $("#tode").click(function () {
+        $.ajax({
+            url: "/delete_userinfo",
+            type: "post",
+            traditional: true,
+            data: {
+                name: names,
+            },
+            async: false,
+        })
+    });
+
+    function update(e) {
+        var i = e;
+        var tb = document.getElementById('sampleTable');
+        var row = tb.rows;
+        {#var cols = tb.rows.item(0).cells.length;#}
+        var name = row[i].cells[2].innerHTML;
+        var sex = row[i].cells[3].innerHTML;
+        var job = row[i].cells[4].innerHTML;
+        var idcard = row[i].cells[5].innerHTML;
+        var phone = row[i].cells[6].innerHTML;
+        var quanxian = row[i].cells[7].innerHTML;
+        $('#name_update').val(name);
+        $('#sex_update').val(sex);
+        $('#job_update').val(job);
+        $('#idcard_update').val(idcard);
+        $('#phone_update').val(phone);
+        $('#quanxian_update').val(quanxian);
+    }
+
+</script>
+<script>
+    function jiaoyan() {
+
+        var bootstrapValidator = $('#form5').data('bootstrapValidator');
+        //手动触发验证
+        bootstrapValidator.validate();
+        //判断是否都合法
+        if (bootstrapValidator.isValid()) {
+            //提交表单 注意 不能用 jquery对象 必须用dom对象
+            $('#form5')[0].submit();
+
+        }
+
+    }
+
+    $(document).ready(function () {
+        //bootstrapValidator-begin
+        $('#form5').bootstrapValidator({
+            //live: 'disabled',
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                name: {
+                    validators: {
+                        notEmpty: {
+
+                            message: '此项为必填项'
+                        },
+                    }
+                },
+                username: {
+                    validators: {
+                        notEmpty: {
+
+                            message: '此项为必填项'
+                        },
+                    }
+                },
+                password: {
+                    validators: {
+                        notEmpty: {
+
+                            message: '此项为必填项'
+                        },
+                    }
+                },
+                job: {
+                    validators: {
+                        notEmpty: {
+                            message: '此项为必填项'
+                        },
+                    }
+                },
+                idcard: {
+                    validators: {
+                        notEmpty: {
+
+                            message: '此项为必填项'
+                        },
+                    }
+                },
+                phone: {
+                    validators: {
+                        notEmpty: {
+                            message: '此项为必填项'
+                        },
+                    }
+                },
+            }
+        })
+        //bootstrapValidator-end
+    });
+</script>
+</body>
+</html>

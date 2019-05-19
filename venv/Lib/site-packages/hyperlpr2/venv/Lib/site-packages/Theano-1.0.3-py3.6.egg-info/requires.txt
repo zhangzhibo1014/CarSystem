@@ -1,0 +1,12 @@
+numpy>=1.9.1
+scipy>=0.14
+six>=1.9.0
+
+[doc]
+Sphinx>=0.5.1
+pygments
+
+[test]
+nose>=1.3.0
+parameterized
+flake8

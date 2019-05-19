@@ -1,0 +1,77 @@
+Metadata-Version: 2.1
+Name: Theano
+Version: 1.0.3
+Summary: Optimizing compiler for evaluating mathematical expressions on CPUs and GPUs.
+Home-page: http://deeplearning.net/software/theano/
+Author: LISA laboratory, University of Montreal
+Author-email: theano-dev@googlegroups.com
+License: BSD
+Description: Theano is a Python library that allows you to define, optimize, and efficiently evaluate mathematical expressions involving multi-dimensional arrays. It is built on top of NumPy_. Theano features:
+        
+         * **tight integration with NumPy:** a similar interface to NumPy's. numpy.ndarrays are also used internally in Theano-compiled functions.
+         * **transparent use of a GPU:** perform data-intensive computations up to 140x faster than on a CPU (support for float32 only).
+         * **efficient symbolic differentiation:** Theano can compute derivatives for functions of one or many inputs.
+         * **speed and stability optimizations:** avoid nasty bugs when computing expressions such as log(1 + exp(x)) for large values of x.
+         * **dynamic C code generation:** evaluate expressions faster.
+         * **extensive unit-testing and self-verification:** includes tools for detecting and diagnosing bugs and/or potential problems.
+        
+        Theano has been powering large-scale computationally intensive scientific
+        research since 2007, but it is also approachable enough to be used in the
+        classroom (IFT6266 at the University of Montreal).
+        
+        .. _NumPy: http://numpy.scipy.org/
+        
+        
+        =============
+        Release Notes
+        =============
+        
+        Theano 1.0.3 (20th of September 2018)
+        =====================================
+        
+        This is a maintenance release of Theano, version ``1.0.3``, with no
+        new features, but some important bug fixes.
+        
+        We recommend that everybody update to this version.
+        
+        Highlights (since 1.0.2):
+        
+         - Theano is now compatible with Python 3.7
+         - Broadcasting for sparse dot products works correctly
+         - Subtensor grads do not return int anymore
+        
+        A total of 5 people contributed to this release since ``1.0.2``:
+        
+         - Frederic Bastien
+         - Arnaud Bergeron
+         - Dmitry Mottl
+         - Adrian Seyboldt
+         - Thomas Wiecki
+        
+Keywords: theano math numerical symbolic blas numpy gpu autodiff differentiation
+Platform: Windows
+Platform: Linux
+Platform: Solaris
+Platform: Mac OS-X
+Platform: Unix
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Education
+Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Programming Language :: Python
+Classifier: Topic :: Software Development :: Code Generators
+Classifier: Topic :: Software Development :: Compilers
+Classifier: Topic :: Scientific/Engineering :: Mathematics
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX
+Classifier: Operating System :: Unix
+Classifier: Operating System :: MacOS
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Provides-Extra: doc
+Provides-Extra: test

@@ -1,0 +1,27 @@
+Metadata-Version: 2.1
+Name: drf-haystack
+Version: 1.8.4
+Summary: Makes Haystack play nice with Django REST Framework
+Home-page: https://github.com/inonit/drf-haystack
+Author: Rolf Håvard Blindheim
+Author-email: rolf.blindheim@inonit.no
+License: MIT License
+Download-URL: https://github.com/inonit/drf-haystack.git
+Platform: UNKNOWN
+Classifier: Operating System :: OS Independent
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Django
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Dist: Django (<2.2,>=1.11)
+Requires-Dist: djangorestframework (>=3.7)
+Requires-Dist: django-haystack (>=2.8)
+Requires-Dist: python-dateutil
+
+Implements a ViewSet, FiltersBackends and Serializers in order to play nice with Haystack.
+
+
