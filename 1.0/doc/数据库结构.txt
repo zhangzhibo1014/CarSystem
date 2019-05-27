@@ -1,0 +1,34 @@
+视图：
+create view car_school_view as select plate_number,name,sex,word_number,idcard,phone,partment_name from car_car_school,car_partment where car_car_school.partment_id = car_partment.partment_id
+
+触发器：
+create trigger money before INSERT
+on car_car for each row
+begin
+declare hour_m FLOAT;
+DECLARE across_m FLOAT;
+DECLARE day_m FLOAT;
+declare m  FLOAT;
+
+select hour_money,day_money,cross_money into hour_m,day_m,across_m from car_charge_standard where able = 1;
+
+
+if New.car_type != '学校车辆' and New.enter_info != New.exit_info and New.stay_date < 30 then
+    set m = across_m;
+elseif New.car_type != '学校车辆' and New.stay_date < 1400 then
+    set m = hour_m * CEIL(New.stay_date/30) /2;
+elseif New.car_type != '学校车辆' and New.stay_date > 1400 then
+    set m = day_m;
+elseif New.car_type = '学校车辆' then
+    set m = 0;
+end if;
+set New.money = m;
+end
+
+
+
+CREATE TRIGGER stay_time before insert
+on car_car for each row
+begin
+set New.stay_date=(select ABS(TIMESTAMPDIFF(MINUTE,New.out_date,New.in_date)));
+end
