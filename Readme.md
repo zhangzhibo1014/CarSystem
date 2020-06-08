@@ -36,3 +36,5 @@
 
 
 后期项目会放在服务器上进行测试~，如果比较喜欢，自行Fork and Star.
+
+`v2.0` 着手准备开发，前端采用 `Vue+Vuex+Vue-router` 开发，管理系统后台准备采用 `SpringBoot + MyBatis + Shiro + Redis` 开发，数据库采用 `MySQL` 开发
