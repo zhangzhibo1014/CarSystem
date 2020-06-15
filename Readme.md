@@ -37,4 +37,12 @@
 
 后期项目会放在服务器上进行测试~，如果比较喜欢，自行Fork and Star.
 
-`v2.0` 着手准备开发，前端采用 `Vue+Vuex+Vue-router` 开发，管理系统后台准备采用 `SpringBoot + MyBatis + Shiro + Redis` 开发，数据库采用 `MySQL` 开发
+`v2.0` 着手准备开发，前端采用 `Vue+Vuex+Vue-router` 开发，管理系统后台准备采用 `SpringBoot + MyBatis + Shiro + Redis` 开发，数据库采用 `MySQL` 开发，预计7月末开发完毕，如有需要请关注
+
+如有问题可以联系我
+
+```
+Email:zhangzhibo1014@163.com
+Wechat:zzbwoaini1014
+QQ:553340463
+```
