@@ -1,4 +1,4 @@
-Django==2.2.13
+Django==2.2.24
 Pillow==5.1.0
 PyMySQL==0.9.3
 arrow==0.13.2
